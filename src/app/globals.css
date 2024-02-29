@@ -38,18 +38,61 @@ html {
   font-size: 62.5%;
   overflow-x: hidden;
 }
+
 html::-webkit-scrollbar {
   width: 1rem;
 }
+
 html::-webkit-scrollbar-track {
   background: var(--gray3);
 }
+
 html::-webkit-scrollbar-thumb {
   background: var(--primaryColor);
   border-radius: 5rem;
 }
+
 html body {
   background: var(--gray3);
   padding-bottom: 6.5rem;
 }
 
+html section {
+  padding: 5rem 9%;
+}
+
+.home-min-height {
+  min-height: calc(100vh - 6.5rem);
+}
+
+.home-img {
+  height: 70%;
+  width: 70%;
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+}
+
+.flex-1-1-42 {
+  flex: 1 1 42rem;
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+  section {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-img {
+    height: 30rem;
+    width: 30rem;
+  }
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 50%;
+  }
+}
