@@ -18,7 +18,7 @@ const config: Config = {
       white: '#ffffff',
     },
     boxShadow: {
-      default: '0 .5rem 1rem rgba(0,0,0,.7)',
+      '3xl': '0 .5rem 1rem rgba(0,0,0,.7)',
     },
   },
   plugins: [],
