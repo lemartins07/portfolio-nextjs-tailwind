@@ -1,11 +1,9 @@
-import { unstable_noStore as noStore } from 'next/cache'
 import { NextResponse } from 'next/server'
 
 const API_GIT = process.env.GIT_API_KEY
 const API_VERCEL = process.env.VERCEL_TOKEN
 
-export async function GET() {
-  noStore()
+async function getGithubData() {
   const resultGithub = await fetch(
     `https://api.github.com/users/lemartins07/repos?sort=updated&per_page=100`,
     {
@@ -15,8 +13,11 @@ export async function GET() {
       method: 'GET',
     },
   )
-  const dataGithub = await resultGithub.json()
 
+  return resultGithub.json()
+}
+
+async function getVercelData() {
   const resultVercel = await fetch(
     `https://api.vercel.com/v9/projects?limit=40`,
     {
@@ -27,23 +28,29 @@ export async function GET() {
     },
   )
 
-  const dataVercel = await resultVercel.json()
+  return resultVercel.json()
+}
 
-  const filteredData = dataGithub.filter(
-    (repo: { homepage: null | string }) => repo.homepage !== null,
-  )
+export async function GET() {
+  try {
+    const dataGithub = await getGithubData()
 
-  const result = filteredData.filter((githubRepo: { name: string }) => {
-    return dataVercel.projects.some(
-      (vercelRepo: { link: { repo: string } }) => {
-        return githubRepo.name === vercelRepo.link.repo
-      },
+    const dataVercel = await getVercelData()
+
+    const filteredData = dataGithub.filter(
+      (repo: { homepage: null | string }) => repo.homepage !== null,
     )
-  })
 
-  console.log(result.length)
+    const result = filteredData.filter((githubRepo: { name: string }) => {
+      return dataVercel.projects.some(
+        (vercelRepo: { link: { repo: string } }) => {
+          return githubRepo.name === vercelRepo.link.repo
+        },
+      )
+    })
 
-  console.log(filteredData.length)
-
-  return NextResponse.json(result)
+    return NextResponse.json(result)
+  } catch (error) {
+    console.log(error)
+  }
 }
