@@ -22,7 +22,7 @@ export default async function Page() {
   }
   return (
     <section className="portfolio">
-      <Heading textBlue="my" textWhite="portfolio" />
+      <Heading textWhite="my" textBlue="portfolio" />
 
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(31rem,_1fr))] gap-8 mb-8">
         <Suspense fallback={<p>Carregando...</p>}>

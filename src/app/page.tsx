@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { FaUser } from 'react-icons/fa'
 import { getHomeData } from './lib/data'
+import { Button } from './ui/Button'
 
 export default async function Home() {
   const data = await getHomeData()
@@ -28,15 +28,8 @@ export default async function Home() {
             <p className="text-2xl text-gray5 py-4 px-0 leading-8">
               {data.bio}
             </p>
-            <a
-              href="#"
-              className="flex items-center justify-center self-center md:self-start w-max gap-4 mt-4 rounded-full bg-primaryColor p-3 text-gray1 text-3xl pl-8 transition-all hover:gap-8"
-            >
-              about me
-              <i className="flex items-center justify-center h-16 w-16 bg-gray3 rounded-full">
-                <FaUser className="text-primaryColor" size={18} />
-              </i>
-            </a>
+
+            <Button label="About Me" icon="user" />
           </div>
         </>
       )}
