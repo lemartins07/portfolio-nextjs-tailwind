@@ -1,19 +1,11 @@
 import Image from 'next/image'
 import Heading from '../ui/Heading'
 import { FaRedo } from 'react-icons/fa'
-import { fetchPortfoliosData } from '../lib/data'
+import getPortfolioData from '../../actions/portfolio-get'
 import { Suspense } from 'react'
 
-interface Portfolio {
-  id: number
-  name: string
-  html_url: string
-  description: string
-  homepage: string
-}
-
 export default async function Page() {
-  const portfolios: Portfolio[] = await fetchPortfoliosData()
+  const { data: portfolios } = await getPortfolioData()
 
   function formartUrl(url: string) {
     const formattedUrl = url.includes('https://') ? url : 'https://' + url
