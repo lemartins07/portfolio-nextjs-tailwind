@@ -14,15 +14,15 @@ export async function getHomeData() {
   }
 }
 
-export async function fetchPortfoliosData() {
-  const result = await fetch(
-    'https://portfolio-nextjs-tailwind-lemartins07.vercel.app/api/github',
-    {
-      method: 'GET',
-    },
-  )
+export async function fecthContactLinks() {
+  try {
+    const result = await prisma.userContact.findMany()
 
-  const data = await result.json()
-
-  return data
+    await prisma.$disconnect()
+    return result
+  } catch (error: unknown) {
+    await prisma.$disconnect()
+    console.error('Database Error:', error)
+    throw new Error('Failed to fetch contact link data.')
+  }
 }

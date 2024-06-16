@@ -1,8 +1,10 @@
 import Image from 'next/image'
-import Heading from '../ui/Heading'
+
 import { FaRedo } from 'react-icons/fa'
-import getPortfolioData from '../../actions/portfolio-get'
+
 import { Suspense } from 'react'
+import getPortfolioData from '../lib/actions'
+import Heading from '../components/Heading'
 
 export default async function Page() {
   const { data: portfolios } = await getPortfolioData()

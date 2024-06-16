@@ -1,6 +1,6 @@
 'use server'
 
-import apiError from '../utils/apiError'
+import apiError from './utils'
 
 const API_GIT = process.env.GIT_API_KEY
 const API_VERCEL = process.env.VERCEL_TOKEN

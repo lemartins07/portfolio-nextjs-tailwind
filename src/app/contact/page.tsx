@@ -1,16 +1,14 @@
-import {
-  FaEnvelope,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaMap,
-  FaPhone,
-  FaTwitter,
-} from 'react-icons/fa'
-import Heading from '../ui/Heading'
-import { Button } from '../ui/Button'
+import Heading from '@/app/components/Heading'
+import { Button } from '@/app/components/Forms/Button'
+import ContactInfo from '../components/ContactInfo'
+import ContactLink from '../components/ContactLink'
 
-export default function Page() {
+import { fecthContactLinks } from '@/app/lib/data'
+import Input from '../components/Forms/Input'
+import Textarea from '../components/Forms/Textarea'
+
+export default async function Page() {
+  const contactLinks = await fecthContactLinks()
   return (
     <section>
       <Heading textWhite="contact" textBlue="me" />
@@ -26,106 +24,46 @@ export default function Page() {
           </p>
 
           <div className="py-8 px-0">
-            <div className="flex gap-8 py-4 px-0">
-              <i className="text-5xl text-primaryColor">
-                <FaMap />
-              </i>
-              <div className="info">
-                <h3 className="text-4xl text-white">address:</h3>
-                <p className="text-2xl text-gray5 py-4 px-0">
-                  porto alegre, brazil
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-8 py-4 px-0">
-              <i className="text-5xl text-primaryColor">
-                <FaEnvelope />
-              </i>
-              <div className="info">
-                <h3 className="text-4xl text-white">email:</h3>
-                <p className="text-2xl text-gray5 py-4 px-0">
-                  email@example.com
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-8 py-4 px-0">
-              <i className="text-5xl text-primaryColor">
-                <FaPhone />
-              </i>
-              <div className="info">
-                <h3 className="text-4xl text-white">number:</h3>
-                <p className="text-2xl text-gray5 py-4 px-0">
-                  +55-51-9988-77556
-                </p>
-              </div>
-            </div>
+            <ContactInfo
+              title="address:"
+              description="porto alegre, brazil"
+              icon="map"
+            />
+            <ContactInfo
+              title="email:"
+              description="email@example.com"
+              icon="envelope"
+            />
+            <ContactInfo
+              title="number:"
+              description="+55-51-9988-77556"
+              icon="phone"
+            />
           </div>
 
           <div className="flex gap-4">
-            <a
-              href=""
-              className="text-3xl h-[4.5rem] w-[4.5rem] rounded-full text-white bg-gray4 text-center flex items-center justify-center hover:bg-primaryColor"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href=""
-              className="text-3xl h-[4.5rem] w-[4.5rem] rounded-full text-white bg-gray4 text-center flex items-center justify-center hover:bg-primaryColor"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href=""
-              className="text-3xl h-[4.5rem] w-[4.5rem] rounded-full text-white bg-gray4 text-center flex items-center justify-center hover:bg-primaryColor"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href=""
-              className="text-3xl h-[4.5rem] w-[4.5rem] rounded-full text-white bg-gray4 text-center flex items-center justify-center hover:bg-primaryColor"
-            >
-              <FaLinkedin />
-            </a>
+            {contactLinks &&
+              contactLinks.map((contact) => (
+                <ContactLink
+                  key={contact.id}
+                  name={contact.name || ''}
+                  link={contact.link}
+                />
+              ))}
           </div>
         </div>
 
         <form className="flex-[1_1_42rem]">
           <div className="flex flex-wrap justify-between">
-            <input
-              className="w-[49%] rounded-[5rem] py-5 px-7 text-2xl text-white normal-case my-3 mx-0 bg-gray4"
-              type="text"
-              placeholder="your name"
-            />
-            <input
-              className="w-[49%] rounded-[5rem] py-5 px-7 text-2xl text-white normal-case my-3 mx-0 bg-gray4"
-              type="number"
-              placeholder="your number"
-            />
+            <Input name="name" placeholder="your name" />
+            <Input name="number" type="number" placeholder="your number" />
           </div>
 
           <div className="flex flex-wrap justify-between">
-            <input
-              className="w-[49%] rounded-[5rem] py-5 px-7 text-2xl text-white normal-case my-3 mx-0 bg-gray4"
-              type="email"
-              placeholder="your email"
-            />
-            <input
-              className="w-[49%] rounded-[5rem] py-5 px-7 text-2xl text-white normal-case my-3 mx-0 bg-gray4"
-              type="text"
-              placeholder="your subject"
-            />
+            <Input name="email" type="email" placeholder="your email" />
+            <Input name="subject" type="text" placeholder="your subject" />
           </div>
-
-          <textarea
-            name=""
-            placeholder="your message"
-            id=""
-            cols={30}
-            rows={10}
-            className="w-full rounded-2xl py-5 px-7 text-2xl text-white normal-case my-3 mx-0 bg-gray4 resize-none h-[24rem]"
-          ></textarea>
+          <Textarea name="message" placeholder="your message" />
           <Button
             type="button"
             label="send message"

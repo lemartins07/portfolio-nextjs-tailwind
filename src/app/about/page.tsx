@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import Heading from '../ui/Heading'
+
 import { FaGraduationCap } from 'react-icons/fa'
+import Heading from '../components/Heading'
 
 export default function Page() {
   return (

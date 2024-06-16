@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { getHomeData } from './lib/data'
-import { Button } from './ui/Button'
+import { Button } from './components/Forms/Button'
 
 export default async function Home() {
   const data = await getHomeData()
