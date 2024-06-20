@@ -37,9 +37,7 @@ export async function submitContactMessage(
 
     const transporter = createTransporter()
 
-    const result = await transporter.sendMail(mailOptions)
-
-    console.log(result)
+    await transporter.sendMail(mailOptions)
 
     return {
       status: 'success',
@@ -56,6 +54,7 @@ export async function submitContactMessage(
         })),
       }
     }
+    console.error(e)
     return {
       status: 'error',
       message: 'Something went wrong. Please try again.',
