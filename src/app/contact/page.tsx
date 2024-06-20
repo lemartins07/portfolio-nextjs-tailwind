@@ -1,11 +1,9 @@
 import Heading from '@/app/components/Heading'
-import { Button } from '@/app/components/Forms/Button'
 import ContactInfo from '../components/ContactInfo'
 import ContactLink from '../components/ContactLink'
+import ContactForm from '../components/Forms/ContactForm'
 
 import { fecthContactLinks } from '@/app/lib/data'
-import Input from '../components/Forms/Input'
-import Textarea from '../components/Forms/Textarea'
 
 export default async function Page() {
   const contactLinks = await fecthContactLinks()
@@ -53,23 +51,7 @@ export default async function Page() {
           </div>
         </div>
 
-        <form className="flex-[1_1_42rem]">
-          <div className="flex flex-wrap justify-between">
-            <Input name="name" placeholder="your name" />
-            <Input name="number" type="number" placeholder="your number" />
-          </div>
-
-          <div className="flex flex-wrap justify-between">
-            <Input name="email" type="email" placeholder="your email" />
-            <Input name="subject" type="text" placeholder="your subject" />
-          </div>
-          <Textarea name="message" placeholder="your message" />
-          <Button
-            type="button"
-            label="send message"
-            className="py-4 px-12 cursor-pointer hover:bg-white text-gray3"
-          />
-        </form>
+        <ContactForm />
       </div>
     </section>
   )

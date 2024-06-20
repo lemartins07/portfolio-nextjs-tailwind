@@ -7,18 +7,20 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    colors: {
-      primaryColor: '#64DAFB',
-      gray1: '#010607',
-      gray2: '#1a1a1a',
-      gray3: '#20232A',
-      gray4: '#282C34',
-      gray5: '#6D6D6D',
-      gray6: '#aaa',
-      white: '#ffffff',
-    },
-    boxShadow: {
-      '3xl': '0 .5rem 1rem rgba(0,0,0,.7)',
+    extend: {
+      colors: {
+        primaryColor: '#64DAFB',
+        gray1: '#010607',
+        gray2: '#1a1a1a',
+        gray3: '#20232A',
+        gray4: '#282C34',
+        gray5: '#6D6D6D',
+        gray6: '#aaa',
+        white: '#ffffff',
+      },
+      boxShadow: {
+        '3xl': '0 .5rem 1rem rgba(0,0,0,.7)',
+      },
     },
   },
   plugins: [],

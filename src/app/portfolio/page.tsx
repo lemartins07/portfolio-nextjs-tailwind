@@ -3,11 +3,12 @@ import Image from 'next/image'
 import { FaRedo } from 'react-icons/fa'
 
 import { Suspense } from 'react'
-import getPortfolioData from '../lib/actions'
+
 import Heading from '../components/Heading'
+import { fectchPortfolio } from '../lib/data'
 
 export default async function Page() {
-  const { data: portfolios } = await getPortfolioData()
+  const { data: portfolios } = await fectchPortfolio()
 
   function formartUrl(url: string) {
     const formattedUrl = url.includes('https://') ? url : 'https://' + url

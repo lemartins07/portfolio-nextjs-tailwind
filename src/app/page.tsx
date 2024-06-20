@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { getHomeData } from './lib/data'
-import { Button } from './components/Forms/Button'
+import Button from './components/Forms/Button'
 
 export default async function Home() {
   const data = await getHomeData()
@@ -11,7 +11,7 @@ export default async function Home() {
           <div className="flex justify-center text-center flex-1-1-42">
             <Image
               alt={data.name || ''}
-              src="/leandro_portfolio_.png"
+              src="/leandro_portfolio.png"
               width={700}
               height={700}
               className="home-img"

@@ -1,82 +1,80 @@
 'use server'
 
-import apiError from './utils'
+import { ZodError } from 'zod'
+import { contactFormSchema } from './validation'
+import { env } from 'process'
+import nodemailer from 'nodemailer'
 
-const API_GIT = process.env.GIT_API_KEY
-const API_VERCEL = process.env.VERCEL_TOKEN
+export type State =
+  | {
+      status: 'success'
+      message: string
+    }
+  | {
+      status: 'error'
+      message: string
+      errors?: Array<{
+        path: string
+        message: string
+      }>
+    }
+  | null
 
-interface Portfolio {
-  id: number
-  name: string
-  html_url: string
-  description: string
-  homepage: string
-}
-
-async function getGithubData() {
+export async function submitContactMessage(
+  prevState: State | null,
+  data: FormData,
+): Promise<State> {
   try {
-    const response = await fetch(
-      `https://api.github.com/users/lemartins07/repos?sort=updated&per_page=100`,
-      {
-        headers: {
-          Authorization: `${API_GIT}`,
-        },
-        method: 'GET',
-      },
-    )
+    // Validate our data
+    const { name, number, subject, email, message } =
+      contactFormSchema.parse(data)
+    const mailOptions = {
+      from: `${name} <${email}>`,
+      to: 'lemartins07dev@gmail.com; leandromartins85@gmail.com',
+      subject,
+      text: message + ' ' + number,
+    }
 
-    if (!response.ok) throw new Error('Erro ao pegar a foto.')
+    const transporter = createTransporter()
 
-    const data = await response.json()
+    const result = await transporter.sendMail(mailOptions)
 
-    return { data, ok: true, error: '' }
-  } catch (error: unknown) {
-    return apiError(error)
+    console.log(result)
+
+    return {
+      status: 'success',
+      message: 'Email sent successfully.',
+    }
+  } catch (e) {
+    if (e instanceof ZodError) {
+      return {
+        status: 'error',
+        message: 'Invalid form data',
+        errors: e.issues.map((issue) => ({
+          path: issue.path.join('.'),
+          message: `Server validation: ${issue.message}`,
+        })),
+      }
+    }
+    return {
+      status: 'error',
+      message: 'Something went wrong. Please try again.',
+    }
   }
 }
 
-async function getVercelData() {
-  try {
-    const response = await fetch(
-      `https://api.vercel.com/v9/projects?limit=40`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_VERCEL}`,
-        },
-        method: 'GET',
-      },
-    )
-
-    if (!response.ok) throw new Error('Erro ao pegar a foto.')
-
-    const data = await response.json()
-
-    return { data, ok: true, error: '' }
-  } catch (error: unknown) {
-    return apiError(error)
+function createTransporter() {
+  const transporterOptions = {
+    service: 'gmail',
+    host: env.GMAIL_HOST,
+    port: 587,
+    secure: true,
+    auth: {
+      user: env.GMAIL_USER,
+      pass: env.GMAIL_APP_KEY,
+    },
   }
-}
+  const transporter = nodemailer.createTransport(transporterOptions)
 
-export default async function getPortfolioData() {
-  try {
-    const { data: dataGithub } = await getGithubData()
-
-    const { data: dataVercel } = await getVercelData()
-
-    const filteredData = dataGithub.filter(
-      (repo: { homepage: null | string }) => repo.homepage !== null,
-    )
-
-    const data = filteredData.filter((githubRepo: { name: string }) => {
-      return dataVercel.projects.some(
-        (vercelRepo: { link: { repo: string } }) => {
-          return githubRepo.name === vercelRepo.link.repo
-        },
-      )
-    }) as Portfolio[]
-
-    return { data, ok: true, error: '' }
-  } catch (error) {
-    return apiError(error)
-  }
+  return transporter
 }
