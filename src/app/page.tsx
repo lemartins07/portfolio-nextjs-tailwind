@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { getHomeData } from './lib/data'
+import { fetchUserData } from './lib/data'
 import Button from './components/Forms/Button'
 
 export default async function Home() {
-  const data = await getHomeData()
+  const data = await fetchUserData()
   return (
     <section className="flex items-center flex-wrap gap-8 md:gap-16 home-min-height text-center md:text-left">
       {data && (
