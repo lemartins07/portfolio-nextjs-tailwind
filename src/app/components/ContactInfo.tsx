@@ -3,7 +3,7 @@ import { FaEnvelope, FaMap, FaPhone } from 'react-icons/fa'
 type ContactInfoType = {
   icon: 'map' | 'envelope' | 'phone'
   title: string
-  description: string
+  description: string | null | undefined
 }
 
 export default function ContactInfo({

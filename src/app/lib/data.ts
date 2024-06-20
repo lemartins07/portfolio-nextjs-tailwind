@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 const API_GIT = process.env.GIT_API_KEY
 const API_VERCEL = process.env.VERCEL_TOKEN
 
-export async function getHomeData() {
+export async function fetchUserData() {
   try {
     const result = await prisma.user.findFirst()
 

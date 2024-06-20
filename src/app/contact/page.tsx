@@ -3,10 +3,11 @@ import ContactInfo from '../components/ContactInfo'
 import ContactLink from '../components/ContactLink'
 import ContactForm from '../components/Forms/ContactForm'
 
-import { fecthContactLinks } from '@/app/lib/data'
+import { fecthContactLinks, fetchUserData } from '@/app/lib/data'
 
 export default async function Page() {
   const contactLinks = await fecthContactLinks()
+  const userData = await fetchUserData()
   return (
     <section>
       <Heading textWhite="contact" textBlue="me" />
@@ -16,26 +17,22 @@ export default async function Page() {
           <h1 className="text-5xl uppercase text-white pb-4">get in touch</h1>
 
           <p className="text-2xl text-gray5 py-4 px-0">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis
-            excepturi saepe eaque ducimus. Ab, at amet similique natus corporis
-            et!
+            Got an idea you want to bring to life? Whether you need a skilled
+            programmer to turn your vision into reality or have any questions,
+            feel free to reach out through the form below. Let&apos;s make
+            something amazing together
           </p>
 
           <div className="py-8 px-0">
             <ContactInfo
               title="address:"
-              description="porto alegre, brazil"
+              description={userData?.address}
               icon="map"
             />
             <ContactInfo
               title="email:"
-              description="email@example.com"
+              description={userData?.email}
               icon="envelope"
-            />
-            <ContactInfo
-              title="number:"
-              description="+55-51-9988-77556"
-              icon="phone"
             />
           </div>
 

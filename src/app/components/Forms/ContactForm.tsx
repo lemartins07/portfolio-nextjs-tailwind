@@ -113,7 +113,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div>
+      <div className="mb-4">
         <textarea
           cols={30}
           rows={10}
