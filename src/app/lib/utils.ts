@@ -19,3 +19,9 @@ export default function apiError(error: unknown): ApiError {
     }
   }
 }
+
+export function formartUrl(url: string) {
+  const formattedUrl = url.includes('https://') ? url : 'https://' + url
+
+  return formattedUrl
+}
