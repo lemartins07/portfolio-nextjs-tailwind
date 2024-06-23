@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import { fetchUserData } from './lib/data'
-import Button from './components/Forms/Button'
+import HeroData from './components/HeroData'
 
 export default async function Home() {
   const data = await fetchUserData()
+
   return (
     <section className="flex items-center flex-wrap gap-8 md:gap-16 home-min-height text-center md:text-left">
       {data && (
@@ -15,22 +16,11 @@ export default async function Home() {
               width={700}
               height={700}
               className="home-img"
+              priority
             />
           </div>
 
-          <div className="flex flex-col flex-1-1-42">
-            <h3 className="text-white text-5xl md:text-6xl pb-2 font-bold">
-              hi, i am {data.name}
-            </h3>
-            <span className="text-5xl text-primaryColor py-2 px-0">
-              {data.skill}
-            </span>
-            <p className="text-2xl text-gray5 py-4 px-0 leading-8">
-              {data.bio}
-            </p>
-
-            <Button label="About Me" icon="user" />
-          </div>
+          <HeroData name={data.name} bio={data.bio} skill={data.skill} />
         </>
       )}
     </section>

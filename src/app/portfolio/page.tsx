@@ -2,15 +2,17 @@
 import { Suspense } from 'react'
 import Heading from '../components/Heading'
 import PortfolioList from '../components/PortfolioList'
+import { PortfolioSkeleton } from '../components/PortfolioSkeleton'
 
 export default async function Page() {
   return (
     <section className="portfolio">
       <Heading textWhite="my" textBlue="portfolio" />
 
-      <Suspense fallback={<p>Carregando...</p>}>
+      <Suspense fallback={<PortfolioSkeleton />}>
         <PortfolioList />
       </Suspense>
+
       {/*
       <a
         href="#"

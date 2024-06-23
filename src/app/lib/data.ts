@@ -80,14 +80,11 @@ async function getVercelData() {
 export async function fectchPortfolio() {
   noStore()
   try {
-    console.log('Fetching portfolio data...')
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    // await new Promise((resolve) => setTimeout(resolve, 3000))
 
     const { data: dataGithub } = await getGithubData()
 
     const { data: dataVercel } = await getVercelData()
-
-    console.log('Data fetch completed after 3 seconds.')
 
     const filteredData = dataGithub.filter(
       (repo: { homepage: null | string }) => repo.homepage !== null,
