@@ -80,11 +80,16 @@ async function getVercelData() {
 export async function fectchPortfolio() {
   noStore()
   try {
-    // await new Promise((resolve) => setTimeout(resolve, 3000))
+    const results = await Promise.allSettled([getGithubData(), getVercelData()])
 
-    const { data: dataGithub } = await getGithubData()
+    const dataGithub =
+      results[0].status === 'fulfilled' ? results[0].value.data : null
+    const dataVercel =
+      results[1].status === 'fulfilled' ? results[1].value.data : null
 
-    const { data: dataVercel } = await getVercelData()
+    if (!dataGithub || !dataVercel) {
+      throw new Error('Failed to fetch data from GitHub or Vercel')
+    }
 
     const filteredData = dataGithub.filter(
       (repo: { homepage: null | string }) => repo.homepage !== null,
