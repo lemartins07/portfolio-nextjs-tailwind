@@ -12,7 +12,7 @@ export default async function Home() {
           <div className="flex justify-center text-center flex-1-1-42">
             <Image
               alt={data.name || ''}
-              src="/17189429995632.jpg"
+              src="/17189429960332.jpg"
               width={1024}
               height={1024}
               className="home-img"

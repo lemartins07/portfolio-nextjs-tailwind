@@ -33,6 +33,31 @@ export async function fecthContactLinks() {
   }
 }
 
+export async function fecthSkills() {
+  try {
+    const result = await prisma.skills.findMany()
+
+    await prisma.$disconnect()
+    return result
+  } catch (error: unknown) {
+    await prisma.$disconnect()
+    console.error('Database Error:', error)
+    throw new Error('Failed to fetch contact link data.')
+  }
+}
+
+export async function fetchEducation() {
+  try {
+    const result = await prisma.education.findMany()
+
+    await prisma.$disconnect()
+    return result
+  } catch (e) {
+    console.error(e)
+    await prisma.$disconnect()
+  }
+}
+
 async function getGithubData() {
   try {
     const response = await fetch(

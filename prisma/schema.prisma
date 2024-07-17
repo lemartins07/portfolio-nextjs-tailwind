@@ -39,8 +39,8 @@ model Skills {
 model Education {
   id Int @id @default(autoincrement())
   title String @db.VarChar(255)
-  description String @db.VarChar(255)
+  description String @db.VarChar(10000)
   begin String @db.VarChar(10)
   end String? @db.VarChar(10)
-  certificateLink String? @db.VarChar(255)
+  certificateLink String? @db.VarChar(1000)
 }
