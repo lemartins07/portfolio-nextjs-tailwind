@@ -42,7 +42,7 @@ export default function ImageSuspense({
           alt={alt}
           width={width}
           height={height}
-          onLoad={handleLoad}
+          onLoadingComplete={handleLoad}
           {...props}
           onError={handleError}
           className="block max-w-full opacity-0 transition duration-200 h-full w-full object-cover"
