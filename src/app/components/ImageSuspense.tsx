@@ -1,7 +1,7 @@
 'use client'
 
 import Image, { ImageProps } from 'next/image'
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 interface ImageHelperComponentProps extends ImageProps {
   src: string
@@ -20,11 +20,9 @@ export default function ImageSuspense({
   const [skeleton, setSkeleton] = useState(true)
   const [imageError, setImageError] = useState(false)
 
-  function handleLoad(event: SyntheticEvent<HTMLImageElement, Event>) {
-    const targetElement = event.target as HTMLElement
-
+  function handleLoad(img: HTMLImageElement) {
     setSkeleton(false)
-    targetElement.style.opacity = '1'
+    img.style.opacity = '1'
   }
 
   function handleError() {
