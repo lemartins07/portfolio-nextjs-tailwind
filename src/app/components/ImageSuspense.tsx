@@ -40,6 +40,8 @@ export default function ImageSuspense({
           alt={alt}
           width={width}
           height={height}
+          loading="eager"
+          priority
           onLoadingComplete={handleLoad}
           {...props}
           onError={handleError}
