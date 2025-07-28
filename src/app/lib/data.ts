@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import apiError from './utils'
 import { Portfolio } from './definitions'
 import { unstable_noStore as noStore } from 'next/cache'
+import { ensureScreenshot } from './screenshot'
 
 const prisma = new PrismaClient()
 
@@ -127,6 +128,14 @@ export async function fectchPortfolio() {
         },
       )
     }) as Portfolio[]
+
+    for (const repo of data) {
+      try {
+        await ensureScreenshot(repo.homepage, repo.name.toLowerCase())
+      } catch (e) {
+        console.error('Screenshot error:', e)
+      }
+    }
 
     return { data, ok: true, error: '' }
   } catch (error) {
