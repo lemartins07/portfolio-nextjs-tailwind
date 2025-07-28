@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Portfolio screenshots
 
-This project uses [ScreenshotOne](https://screenshotone.com) to generate images of portfolio projects. Screenshots are fetched using the `SCREENSHOTONE_KEY` environment variable and downloaded to the `public` folder so subsequent requests do not consume the API quota.
+This project uses [ScreenshotOne](https://screenshotone.com) to generate images of portfolio projects. Screenshots are downloaded via the [`api.screenshotone.com`](https://api.screenshotone.com) endpoint with the `download` option enabled. The `SCREENSHOTONE_KEY` environment variable stores the API key and each image is saved in the `public` folder so repeated builds do not trigger new requests.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

@@ -14,7 +14,7 @@ export default function PortfolioItem({ portfolio }: PortfolioItemType) {
     >
       <ImageSuspense
         alt={portfolio.name}
-        src={`/${portfolio.name.toLowerCase()}.png`}
+        src={`/${portfolio.name.toLowerCase()}.jpg`}
         width={630}
         height={470}
       />

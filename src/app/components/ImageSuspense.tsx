@@ -32,7 +32,7 @@ export default function ImageSuspense({
   }
 
   return (
-    <div className="grid">
+    <div className="grid w-full h-[300px] relative overflow-hidden rounded-lg shadow-3xl">
       {skeleton && <div className="skeleton"></div>}
       {!imageError ? (
         <Image
