@@ -2,10 +2,12 @@ import fs from 'fs/promises'
 import path from 'path'
 
 const ACCESS_KEY = process.env.SCREENSHOTONE_KEY ?? '3eEMm5mnfH7zJA'
+
 const API_URL = 'https://api.screenshotone.com/take'
 
 export async function ensureScreenshot(url: string, fileName: string) {
   const filePath = path.join(process.cwd(), 'public', `${fileName}.jpg`)
+
   try {
     await fs.access(filePath)
     return
