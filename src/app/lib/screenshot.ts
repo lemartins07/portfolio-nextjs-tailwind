@@ -23,7 +23,6 @@ export async function ensureScreenshot(url: string, fileName: string) {
     block_trackers: 'true',
     timeout: '60',
     image_quality: '80',
-    download: 'true',
   })
 
   const res = await fetch(`${API_URL}?${params}`)
@@ -33,5 +32,5 @@ export async function ensureScreenshot(url: string, fileName: string) {
     )
   }
   const arrayBuffer = await res.arrayBuffer()
-  await fs.writeFile(filePath, Buffer.from(arrayBuffer))
+  await fs.writeFile(filePath, new Uint8Array(arrayBuffer))
 }

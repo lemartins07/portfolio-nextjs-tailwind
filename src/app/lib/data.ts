@@ -71,7 +71,7 @@ async function getGithubData() {
       },
     )
 
-    if (!response.ok) throw new Error('Erro ao pegar a foto.')
+    if (!response.ok) throw new Error('Erro ao carregar dados do github.')
 
     const data = await response.json()
 
@@ -93,7 +93,7 @@ async function getVercelData() {
       },
     )
 
-    if (!response.ok) throw new Error('Erro ao pegar a foto.')
+    if (!response.ok) throw new Error('Erro ao carregar dados da vercel.')
 
     const data = await response.json()
 
@@ -131,6 +131,7 @@ export async function fectchPortfolio() {
 
     for (const repo of data) {
       try {
+        console.log('PAGE: ', repo.homepage)
         await ensureScreenshot(repo.homepage, repo.name.toLowerCase())
       } catch (e) {
         console.error('Screenshot error:', e)
