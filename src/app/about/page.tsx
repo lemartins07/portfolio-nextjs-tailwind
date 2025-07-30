@@ -48,10 +48,10 @@ export default async function Page() {
           </div>
 
           <div className="flex-[1_1_42rem] flex flex-wrap gap-8">
-            <InfoCard title="2+" description="years of experience" />
-            <InfoCard title="450+" description="happy clients" />
-            <InfoCard title="390+" description="project completed" />
-            <InfoCard title="10+" description="awards won" />
+            <InfoCard title="4+" description="years of experience" />
+            <InfoCard title="5+" description="Institutions Served" />
+            <InfoCard title="20+" description="project completed" />
+            <InfoCard title="10+" description="Courses & Certifications" />
           </div>
         </div>
       </section>
