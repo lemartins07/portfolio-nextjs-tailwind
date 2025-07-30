@@ -3,31 +3,25 @@
 import Typewriter from 'typewriter-effect'
 import Button from './Forms/Button'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 
 type HeroDataProps = {
   name: string | null
   skill: string | null
   bio: string | null
+  skipAnimation: boolean
+  handleTypewriterEnd: () => void
+  showAll: boolean
 }
 
-export default function HeroData({ name, skill, bio }: HeroDataProps) {
+export default function HeroData({
+  name,
+  skill,
+  bio,
+  handleTypewriterEnd,
+  showAll,
+  skipAnimation,
+}: HeroDataProps) {
   const router = useRouter()
-  const [showAll, setShowAll] = useState(false)
-  const [skipAnimation, setSkipAnimation] = useState(false)
-
-  useEffect(() => {
-    if (sessionStorage.getItem('heroAnimationShown')) {
-      setShowAll(true)
-      setSkipAnimation(true)
-    }
-  }, [])
-
-  const handleTypewriterEnd = () => {
-    setShowAll(true)
-    sessionStorage.setItem('heroAnimationShown', 'true')
-    console.log(sessionStorage.getItem('heroAnimationShown'))
-  }
 
   return (
     <div className="flex flex-col flex-1-1-42">

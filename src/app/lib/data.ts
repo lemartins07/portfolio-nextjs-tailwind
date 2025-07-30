@@ -133,7 +133,6 @@ export async function fectchPortfolio() {
 
     for (const repo of data) {
       try {
-        console.log('PAGE: ', repo.homepage)
         await ensureScreenshot(repo.homepage, repo.name.toLowerCase())
       } catch (e) {
         console.error('Screenshot error:', e)

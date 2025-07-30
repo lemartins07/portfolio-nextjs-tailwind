@@ -13,6 +13,13 @@ interface UserData {
 export default function Home() {
   const [data, setData] = useState<UserData | null>(null)
   const [loaded, setLoaded] = useState(false)
+  const [showAll, setShowAll] = useState(false)
+  const [skipAnimation, setSkipAnimation] = useState(false)
+
+  const handleTypewriterEnd = () => {
+    setShowAll(true)
+    sessionStorage.setItem('heroAnimationShown', 'true')
+  }
 
   useEffect(() => {
     fetchUserData().then((result) => {
@@ -26,6 +33,11 @@ export default function Home() {
         setData(null)
       }
     })
+
+    if (sessionStorage.getItem('heroAnimationShown')) {
+      setShowAll(true)
+      setSkipAnimation(true)
+    }
   }, [])
 
   return (
@@ -41,10 +53,17 @@ export default function Home() {
               priority
               loading="eager"
               onLoadingComplete={() => setLoaded(true)}
-              className={`home-img transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+              className={`home-img ${!skipAnimation && `transition-opacity duration-700`} ${loaded ? 'opacity-100' : 'opacity-0'}`}
             />
           </div>
-          <HeroData name={data.name} bio={data.bio} skill={data.skill} />
+          <HeroData
+            name={data.name}
+            bio={data.bio}
+            skill={data.skill}
+            handleTypewriterEnd={handleTypewriterEnd}
+            skipAnimation={skipAnimation}
+            showAll={showAll}
+          />
         </>
       )}
     </section>
