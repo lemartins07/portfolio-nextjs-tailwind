@@ -2,6 +2,8 @@
 
 import Typewriter from 'typewriter-effect'
 import Button from './Forms/Button'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 type HeroDataProps = {
   name: string | null
@@ -10,6 +12,9 @@ type HeroDataProps = {
 }
 
 export default function HeroData({ name, skill, bio }: HeroDataProps) {
+  const router = useRouter()
+  const [showAll, setShowAll] = useState(false)
+
   return (
     <div className="flex flex-col flex-1-1-42">
       <h3 className="text-white text-5xl md:text-6xl pb-2 font-bold">
@@ -24,15 +29,31 @@ export default function HeroData({ name, skill, bio }: HeroDataProps) {
             typewriter
               .typeString(`hi, i'am ${name || ''}`)
               .pauseFor(500)
+              .callFunction(() => setShowAll(true))
               .start()
-              .stop()
           }}
         />
       </h3>
-      <span className="text-5xl text-primaryColor py-2 px-0">{skill}</span>
-      <p className="text-2xl text-gray5 py-4 px-0 leading-8">{bio}</p>
+      <span
+        className={`text-5xl text-primaryColor py-2 px-0 inline-block transition-all duration-700 transform delay-0 ${showAll ? 'translate-x-0 opacity-100' : 'translate-x-32 opacity-0'}`}
+      >
+        {skill}
+      </span>
+      <p
+        className={`text-2xl text-gray5 py-4 px-0 leading-8 transition-all duration-700 transform delay-300 ${showAll ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        {bio}
+      </p>
 
-      <Button label="About Me" icon="user" />
+      <div
+        className={`transition-all duration-700 transform delay-500 ${showAll ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <Button
+          label="About Me"
+          icon="user"
+          onClick={() => router.push('/about')}
+        />
+      </div>
     </div>
   )
 }
