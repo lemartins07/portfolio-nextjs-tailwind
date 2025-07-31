@@ -2,7 +2,7 @@
 
 import { PrismaClient } from '@prisma/client'
 import apiError from './utils'
-import { Portfolio } from './definitions'
+import { GithubRepo, Portfolio } from './definitions'
 import { unstable_noStore as noStore } from 'next/cache'
 import { ensureScreenshot } from './screenshot'
 
@@ -10,6 +10,23 @@ const prisma = new PrismaClient()
 
 const API_GIT = process.env.GIT_API_KEY
 const API_VERCEL = process.env.VERCEL_TOKEN
+
+// Array com a ordem dos projetos mais importantes (preencha conforme desejar)
+const featuredOrder = [
+  'devchallenges-weather-app',
+  'ignite-desafio-coffee-delivery',
+  'devchallenges-catwiki',
+  'dogs-nextjs',
+  'ignite-timer',
+  'responsive-portfolio',
+  'dogs',
+  'responsive-delivery',
+  'bikecraft',
+  'ignite-reactjs-desafio-todo-list',
+  'ignite-dtmoney',
+  'portfolio-nextjs',
+  'portfolio-nextjs-tailwind',
+]
 
 export async function fetchUserData() {
   try {
@@ -123,13 +140,30 @@ export async function fectchPortfolio() {
       (repo: { homepage: null | string }) => repo.homepage !== null,
     )
 
-    const data = filteredData.filter((githubRepo: { name: string }) => {
-      return dataVercel.projects.some(
-        (vercelRepo: { link: { repo: string } }) => {
-          return githubRepo.name === vercelRepo.link.repo
-        },
-      )
-    }) as Portfolio[]
+    const data = filteredData
+      .filter((githubRepo: { name: string }) => {
+        return dataVercel.projects.some(
+          (vercelRepo: { link: { repo: string } }) => {
+            return githubRepo.name === vercelRepo.link.repo
+          },
+        )
+      })
+      .map((repo: GithubRepo) => ({
+        id: repo.id,
+        name: repo.name,
+        homepage: repo.homepage,
+        description: repo.description,
+        language: repo.language,
+        html_url: repo.html_url,
+      }))
+      .sort((a: Portfolio, b: Portfolio) => {
+        const aIndex = featuredOrder.indexOf(a.name)
+        const bIndex = featuredOrder.indexOf(b.name)
+        if (aIndex === -1 && bIndex === -1) return 0
+        if (aIndex === -1) return 1
+        if (bIndex === -1) return -1
+        return aIndex - bIndex
+      }) as Portfolio[]
 
     for (const repo of data) {
       try {

@@ -21,3 +21,12 @@ export type MailOptions = {
   text: string
   html?: string
 }
+
+export type GithubRepo = {
+  id: number
+  name: string
+  homepage: string | null
+  description: string | null
+  language: string | null
+  html_url: string | null
+}
