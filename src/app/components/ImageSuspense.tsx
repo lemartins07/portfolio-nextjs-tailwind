@@ -42,7 +42,7 @@ export default function ImageSuspense({
           height={height}
           loading="eager"
           priority
-          onLoadingComplete={handleLoad}
+          onLoad={(e) => handleLoad(e.currentTarget)}
           {...props}
           onError={handleError}
           className="block max-w-full opacity-0 transition duration-200 h-full w-full object-cover"

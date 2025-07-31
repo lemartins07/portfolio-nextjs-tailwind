@@ -83,8 +83,17 @@ h1, h2, h3 {
   html {
     font-size: 55%;
   }
-  section {
+  html section {
     padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 55%;
+  }
+  html section {
+    padding: 5rem 7%;
   }
 }
 
