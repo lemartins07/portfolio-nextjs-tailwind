@@ -46,7 +46,7 @@ export default function Home() {
               priority
               loading="eager"
               onLoad={() => setLoaded(true)}
-              className={`home-img transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+              className="home-img motion-preset-expand"
             />
           </div>
           <HeroData
