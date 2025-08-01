@@ -12,7 +12,6 @@ interface UserData {
 
 export default function Home() {
   const [data, setData] = useState<UserData | null>(null)
-  const [loaded, setLoaded] = useState(false)
   const [showAll, setShowAll] = useState(false)
 
   const handleTypewriterEnd = () => {
@@ -45,7 +44,6 @@ export default function Home() {
               height={1024}
               priority
               loading="eager"
-              onLoad={() => setLoaded(true)}
               className="home-img motion-preset-expand"
             />
           </div>
