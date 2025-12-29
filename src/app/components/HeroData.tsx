@@ -10,6 +10,7 @@ type HeroDataProps = {
   bio: string | null
   handleTypewriterEnd: () => void
   showAll: boolean
+  isLoading: boolean
 }
 
 export default function HeroData({
@@ -18,8 +19,20 @@ export default function HeroData({
   bio,
   handleTypewriterEnd,
   showAll,
+  isLoading,
 }: HeroDataProps) {
   const router = useRouter()
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1-1-42 items-center">
+        <div className="h-20 w-72 md:w-96 rounded-full bg-gray4/80 animate-pulse mb-6" />
+        <div className="h-12 w-48 md:w-72 rounded-full bg-gray4/80 animate-pulse mb-6" />
+        <div className="h-24 w-full max-w-xl rounded-3xl bg-gray4/80 animate-pulse mb-6" />
+        <div className="h-16 w-48 rounded-full bg-gray4/80 animate-pulse" />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col flex-1-1-42 items-center">
